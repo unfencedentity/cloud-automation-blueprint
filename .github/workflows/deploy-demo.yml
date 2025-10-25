@@ -1,0 +1,30 @@
+name: Demo Deployment Validation
+
+on:
+  workflow_dispatch:  # Allows manual trigger from GitHub UI
+  push:
+    branches: [ main ]
+    paths:
+      - "modules/**"
+      - "examples/**"
+
+jobs:
+  validate-demo:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up PowerShell
+      uses: PowerShell/setup-powershell@v2
+
+    - name: Run deployment demo (dry-run)
+      shell: pwsh
+      run: |
+        Write-Host "🚀 Running demo deployment (dry-run mode)..."
+        Get-ChildItem ./modules/*.ps1 | ForEach-Object {
+          Write-Host "Testing module: $($_.Name)"
+          pwsh -File $_ -Env dev -Region weu -AppName demo -Location westeurope -ErrorAction Stop
+        }
+        Write-Host "✅ All modules executed successfully (dry-run validation)."
