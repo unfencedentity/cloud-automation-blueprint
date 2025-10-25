@@ -26,3 +26,13 @@ This repository showcases enterprise-style deployment, governance, and modular i
 - Infrastructure Governance & RBAC
 - CI/CD Workflows (GitHub Actions)
 - Documentation & Technical Writing
+
+
+A production-style **Azure automation** blueprint using PowerShell and GitHub Actions.  
+It demonstrates real-world cloud practices: modular scripts, governance (naming & tags), and CI validation running on Windows and Ubuntu.
+
+
+![Demo Deployment Validation](https://github.com/unfencedentity/cloud-automation-blueprint/actions/workflows/deploy-demo.yml/badge.svg)
+![PowerShell Lint](https://github.com/unfencedentity/cloud-automation-blueprint/actions/workflows/lint.yml/badge.svg)
+![Tested on Windows & Ubuntu](https://img.shields.io/badge/tested-Windows%20%7C%20Ubuntu-informational)
+![PowerShell](https://img.shields.io/badge/PowerShell-Automation-blue)
