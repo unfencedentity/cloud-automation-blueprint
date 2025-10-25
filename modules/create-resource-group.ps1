@@ -14,7 +14,8 @@ $tags = @{
 if ($DryRun) {
   Write-Host "[DRY-RUN] Would create RG '$rgName' in $Location with tags:"
   $tags.GetEnumerator() | ForEach-Object { Write-Host " - $($_.Key): $($_.Value)" }
-  exit 0
+  return 0
+
 }
 
 New-AzResourceGroup -Name $rgName -Location $Location -Tag $tags | Out-Null
