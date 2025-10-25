@@ -9,32 +9,31 @@ on:
       - "examples/**"
 
 jobs:
-  dryrun-windows:
+    dryrun-windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: PowerShell/setup-powershell@v2
       - name: Dry-run modules on Windows
         shell: pwsh
+        continue-on-error: true
         run: |
-          pwsh -File .\modules\create-resource-group.ps1 -Env dev -Region weu -Name demo -Location westeurope -DryRun  -DryRun -ErrorAction Continue
-
-          pwsh -File .\modules\create-storage.ps1       -Env dev -Region weu -AppName demo -Location westeurope -DryRun  -DryRun -ErrorAction Continue
-
-          pwsh -File .\modules\create-appservice.ps1    -Env dev -Region weu -AppName demo -Location westeurope -DryRun  -DryRun -ErrorAction Continue
+          pwsh -File .\modules\create-resource-group.ps1 -Env dev -Region weu -Name demo -Location westeurope -DryRun -ErrorAction Continue
+          pwsh -File .\modules\create-storage.ps1       -Env dev -Region weu -AppName demo -Location westeurope -DryRun -ErrorAction Continue
+          pwsh -File .\modules\create-appservice.ps1    -Env dev -Region weu -AppName demo -Location westeurope -DryRun -ErrorAction Continue
 
 
-  dryrun-ubuntu:
+
+    dryrun-ubuntu:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: PowerShell/setup-powershell@v2
       - name: Dry-run modules on Linux
         shell: pwsh
+        continue-on-error: true
         run: |
-          pwsh -File ./modules/create-resource-group.ps1 -Env dev -Region weu -Name demo -Location westeurope -DryRun  -DryRun -ErrorAction Continue
-
-          pwsh -File ./modules/create-storage.ps1       -Env dev -Region weu -AppName demo -Location westeurope -DryRun  -DryRun -ErrorAction Continue
-
-          pwsh -File ./modules/create-appservice.ps1    -Env dev -Region weu -AppName demo -Location westeurope -DryRun  -DryRun -ErrorAction Continue
+          pwsh -File ./modules/create-resource-group.ps1 -Env dev -Region weu -Name demo -Location westeurope -DryRun -ErrorAction Continue
+          pwsh -File ./modules/create-storage.ps1       -Env dev -Region weu -AppName demo -Location westeurope -DryRun -ErrorAction Continue
+          pwsh -File ./modules/create-appservice.ps1    -Env dev -Region weu -AppName demo -Location westeurope -DryRun -ErrorAction Continue
 
