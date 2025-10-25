@@ -12,6 +12,17 @@ This repository showcases enterprise-style deployment, governance, and modular i
 - Policy-based governance (naming + tagging)
 - Reusable PowerShell automation modules
 - GitHub Actions integration
+- ## Quickstart
+
+**Local (dry-run):**
+pwsh ./examples/deploy-full-environment.ps1 -Env dev -Region weu -AppName core -Location westeurope
+
+
+**CI (this repo):**  
+Every push to `main` runs:
+- `Demo Deployment Validation (Dry-Run)` – executes modules on Windows & Ubuntu  
+- `PowerShell Lint` – PSScriptAnalyzer quality gate
+
 
 ## 📁 Structure
 | Folder | Description |
