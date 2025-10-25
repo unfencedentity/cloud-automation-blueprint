@@ -1,15 +1,14 @@
-name: Demo Deployment Validation (Dry-Run)
+name: Demo Deployment Validation
 
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
     paths:
       - "modules/**"
       - "examples/**"
 
 jobs:
-    dryrun-windows:
+  dryrun-windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,9 +21,7 @@ jobs:
           pwsh -File .\modules\create-storage.ps1       -Env dev -Region weu -AppName demo -Location westeurope -DryRun -ErrorAction Continue
           pwsh -File .\modules\create-appservice.ps1    -Env dev -Region weu -AppName demo -Location westeurope -DryRun -ErrorAction Continue
 
-
-
-    dryrun-ubuntu:
+  dryrun-ubuntu:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,4 +33,3 @@ jobs:
           pwsh -File ./modules/create-resource-group.ps1 -Env dev -Region weu -Name demo -Location westeurope -DryRun -ErrorAction Continue
           pwsh -File ./modules/create-storage.ps1       -Env dev -Region weu -AppName demo -Location westeurope -DryRun -ErrorAction Continue
           pwsh -File ./modules/create-appservice.ps1    -Env dev -Region weu -AppName demo -Location westeurope -DryRun -ErrorAction Continue
-
