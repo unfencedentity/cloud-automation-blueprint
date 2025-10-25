@@ -17,9 +17,12 @@ jobs:
       - name: Dry-run modules on Windows
         shell: pwsh
         run: |
-          pwsh -File .\modules\create-resource-group.ps1 -Env dev -Region weu -Name demo -Location westeurope -DryRun
-          pwsh -File .\modules\create-storage.ps1       -Env dev -Region weu -AppName demo -Location westeurope -DryRun
-          pwsh -File .\modules\create-appservice.ps1    -Env dev -Region weu -AppName demo -Location westeurope -DryRun
+          pwsh -File .\modules\create-resource-group.ps1 -Env dev -Region weu -Name demo -Location westeurope -DryRun  -DryRun -ErrorAction Continue
+
+          pwsh -File .\modules\create-storage.ps1       -Env dev -Region weu -AppName demo -Location westeurope -DryRun  -DryRun -ErrorAction Continue
+
+          pwsh -File .\modules\create-appservice.ps1    -Env dev -Region weu -AppName demo -Location westeurope -DryRun  -DryRun -ErrorAction Continue
+
 
   dryrun-ubuntu:
     runs-on: ubuntu-latest
@@ -29,6 +32,9 @@ jobs:
       - name: Dry-run modules on Linux
         shell: pwsh
         run: |
-          pwsh -File ./modules/create-resource-group.ps1 -Env dev -Region weu -Name demo -Location westeurope -DryRun
-          pwsh -File ./modules/create-storage.ps1       -Env dev -Region weu -AppName demo -Location westeurope -DryRun
-          pwsh -File ./modules/create-appservice.ps1    -Env dev -Region weu -AppName demo -Location westeurope -DryRun
+          pwsh -File ./modules/create-resource-group.ps1 -Env dev -Region weu -Name demo -Location westeurope -DryRun  -DryRun -ErrorAction Continue
+
+          pwsh -File ./modules/create-storage.ps1       -Env dev -Region weu -AppName demo -Location westeurope -DryRun  -DryRun -ErrorAction Continue
+
+          pwsh -File ./modules/create-appservice.ps1    -Env dev -Region weu -AppName demo -Location westeurope -DryRun  -DryRun -ErrorAction Continue
+
