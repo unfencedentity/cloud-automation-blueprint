@@ -1,7 +1,7 @@
-name: Demo Deployment Validation
+name: Demo Deployment Validation (Dry-Run)
 
 on:
-  workflow_dispatch:  # Allows manual trigger from GitHub UI
+  workflow_dispatch:
   push:
     branches: [ main ]
     paths:
@@ -9,22 +9,26 @@ on:
       - "examples/**"
 
 jobs:
-  validate-demo:
-    runs-on: ubuntu-latest
-
+  dryrun-windows:
+    runs-on: windows-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: PowerShell/setup-powershell@v2
+      - name: Dry-run modules on Windows
+        shell: pwsh
+        run: |
+          pwsh -File .\modules\create-resource-group.ps1 -Env dev -Region weu -Name demo -Location westeurope -DryRun
+          pwsh -File .\modules\create-storage.ps1       -Env dev -Region weu -AppName demo -Location westeurope -DryRun
+          pwsh -File .\modules\create-appservice.ps1    -Env dev -Region weu -AppName demo -Location westeurope -DryRun
 
-    - name: Set up PowerShell
-      uses: PowerShell/setup-powershell@v2
-
-    - name: Run deployment demo (dry-run)
-      shell: pwsh
-      run: |
-        Write-Host "🚀 Running demo deployment (dry-run mode)..."
-        Get-ChildItem ./modules/*.ps1 | ForEach-Object {
-          Write-Host "Testing module: $($_.Name)"
-          pwsh -File $_ -Env dev -Region weu -AppName demo -Location westeurope -ErrorAction Stop
-        }
-        Write-Host "✅ All modules executed successfully (dry-run validation)."
+  dryrun-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: PowerShell/setup-powershell@v2
+      - name: Dry-run modules on Linux
+        shell: pwsh
+        run: |
+          pwsh -File ./modules/create-resource-group.ps1 -Env dev -Region weu -Name demo -Location westeurope -DryRun
+          pwsh -File ./modules/create-storage.ps1       -Env dev -Region weu -AppName demo -Location westeurope -DryRun
+          pwsh -File ./modules/create-appservice.ps1    -Env dev -Region weu -AppName demo -Location westeurope -DryRun
