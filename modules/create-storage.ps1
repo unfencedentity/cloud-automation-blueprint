@@ -19,7 +19,7 @@ $tags = @{
 if ($DryRun) {
   Write-Host "[DRY-RUN] Would create Storage Account '$saName' in $Location (RG: $rgName, SKU: $SkuName) with tags:"
   $tags.GetEnumerator() | ForEach-Object { Write-Host " - $($_.Key): $($_.Value)" }
-  exit 0
+  return 0
 }
 
 New-AzStorageAccount `
